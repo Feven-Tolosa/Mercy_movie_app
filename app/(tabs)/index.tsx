@@ -1,11 +1,23 @@
 import SearchBar from '@/components/SearchBar'
 import { icons } from '@/constants/icons'
 import { images } from '@/constants/images'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native'
 import { useRouter } from 'expo-router'
+import useFetch from '@/services/useFetch'
+import { fetchMovies } from '@/services/api'
 
 export default function Index() {
   const router = useRouter()
+
+  const {
+    data: movies,
+    loading: moviesLoading,
+    error: movieError,
+  } = useFetch(() =>
+    fetchMovies({
+      query: '',
+    })
+  )
 
   return (
     <View className='flex-1 bg-primary'>
