@@ -44,7 +44,7 @@ export default function Index() {
             className='mt-10 self-center'
           />
         ) : movieError ? (
-          <Text>Error: {movieError}</Text>
+          <Text>Error: movieError</Text>
         ) : (
           <View className='flex-1 mt-5'>
             <SearchBar
