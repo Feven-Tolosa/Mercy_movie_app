@@ -1,4 +1,5 @@
 import MovieCard from '@/components/MovieCard'
+import SearchBar from '@/components/SearchBar'
 import { icons } from '@/constants/icons'
 import { images } from '@/constants/images'
 import { fetchMovies } from '@/services/api'
@@ -6,7 +7,6 @@ import useFetch from '@/services/useFetch'
 import { useRouter } from 'expo-router'
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, FlatList } from 'react-native'
-import { SearchBar } from 'react-native-screens'
 
 const Search = () => {
   const router = useRouter()
@@ -49,8 +49,9 @@ const Search = () => {
               '
               />
             </View>
+
             <View className='my-5'>
-              <SearchBar placeholder='Search movies...' />
+              <SearchBar placeholder='Search for a movie...' />
             </View>
           </>
         }
