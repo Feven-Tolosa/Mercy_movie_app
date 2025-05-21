@@ -30,11 +30,6 @@ const Search = () => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies()
-
-        // Call updateSearchCount only if there are results
-        if (movies?.length! > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0])
-        }
       } else {
         reset()
       }
@@ -71,7 +66,7 @@ const Search = () => {
 
             <View className='my-5'>
               <SearchBar
-                placeholder='Search for a movie'
+                placeholder='Search for a movie...'
                 value={searchQuery}
                 onChangeText={handleSearch}
               />
