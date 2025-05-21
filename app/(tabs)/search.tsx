@@ -5,8 +5,15 @@ import { images } from '@/constants/images'
 import { fetchMovies } from '@/services/api'
 import useFetch from '@/services/useFetch'
 import { useRouter } from 'expo-router'
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native'
 
 const Search = () => {
   const router = useRouter()
@@ -53,6 +60,27 @@ const Search = () => {
             <View className='my-5'>
               <SearchBar placeholder='Search for a movie...' />
             </View>
+            {moviesLoading && (
+              <ActivityIndicator
+                size='large'
+                color='#000ff'
+                className='mt-10 self-center'
+              />
+            )}
+            {movieError && (
+              <Text className='text-white text-center mt-10'>
+                Error: {movieError.message}
+              </Text>
+            )}
+            {!moviesLoading &&
+              !movieError &&
+              'SEARCH TERM'.trim() &&
+              movies?.length > 0 && (
+                <Text className='text-xl text-white font-bold'>
+                  search Results for {''}
+                  <Text className='text-accent'>SEARCH TERM</Text>
+                </Text>
+              )}
           </>
         }
       />
