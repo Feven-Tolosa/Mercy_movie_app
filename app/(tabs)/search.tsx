@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
 import { View, Text, ActivityIndicator, FlatList, Image } from 'react-native'
 
 import { images } from '@/constants/images'
 import { icons } from '@/constants/icons'
+
 import { fetchMovies } from '@/services/api'
 import { updateSearchCount } from '@/services/appwrite'
 
 import SearchBar from '@/components/SearchBar'
 import MovieDisplayCard from '@/components/MovieCard'
+import { useEffect, useState } from 'react'
 import useFetch from '@/services/useFetch'
 
 const Search = () => {
@@ -19,7 +20,7 @@ const Search = () => {
     error,
     refetch: loadMovies,
     reset,
-  } = useFetch(() => fetchMovies({ query: searchQuery }))
+  } = useFetch(() => fetchMovies({ query: searchQuery }), false)
 
   const handleSearch = (text: string) => {
     setSearchQuery(text)
@@ -30,6 +31,11 @@ const Search = () => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies()
+
+        // Call updateSearchCount only if there are results
+        if (movies?.length! > 0 && movies?.[0]) {
+          await updateSearchCount(searchQuery, movies[0])
+        }
       } else {
         reset()
       }
@@ -66,7 +72,7 @@ const Search = () => {
 
             <View className='my-5'>
               <SearchBar
-                placeholder='Search for a movie...'
+                placeholder='Search for a movie'
                 value={searchQuery}
                 onChangeText={handleSearch}
               />
